@@ -1,1 +1,2 @@
      web: java -Dserver.port=$PORT -jar target/ecommerce-0.0.1-SNAPSHOT.jar
+     release: mysql -h $JAWSDB_MARIA_HOST -u $JAWSDB_MARIA_USERNAME -p$JAWSDB_MARIA_PASSWORD $JAWSDB_MARIA_DATABASE < mariadb-sqldump.sql
