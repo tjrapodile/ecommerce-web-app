@@ -13,8 +13,10 @@ public class OrderService {
     @Autowired
     OrderRepository orderRepository;
 
-    public void addOrder(OrderDto orderDto){
+    public String addOrder(OrderDto orderDto){
         CustomerOrder customerOrder = new CustomerOrder(orderDto.getToken(), orderDto.getTotalPrice(), orderDto.getProdIDs(), orderDto.getQuantities(), orderDto.getCountry(), orderDto.getProvince(), orderDto.getSubrub(), orderDto.getCity(), orderDto.getStreetName(), orderDto.getAreaCode());
         orderRepository.save(customerOrder);
+        return "Order Added Successfully";
     }
 }
+
