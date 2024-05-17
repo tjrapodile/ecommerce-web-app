@@ -3,6 +3,7 @@ package com.educative.ecommerce.controller;
 import com.educative.ecommerce.common.ApiResponse;
 import com.educative.ecommerce.dto.cart.AddToCartDto;
 import com.educative.ecommerce.dto.cart.CartDto;
+import com.educative.ecommerce.dto.cart.CartItemDto;
 import com.educative.ecommerce.model.User;
 import com.educative.ecommerce.service.AuthenticationService;
 import com.educative.ecommerce.service.CartService;
@@ -69,6 +70,24 @@ public class CartController {
 
         return new ResponseEntity<>(new ApiResponse(true, "Item has been removed"), HttpStatus.OK);
 
+    }
+
+    @PatchMapping("/update/{cartItemId}")
+    public ResponseEntity<ApiResponse> updateCartItemQuantity(
+            @PathVariable("cartItemId") Integer itemId,
+            @RequestParam("token") String token,
+            @RequestBody CartItemDto cartItemDto) {
+
+        // authenticate the token
+        authenticationService.authenticate(token);
+
+        // find the user
+        User user = authenticationService.getUser(token);
+
+        // update the cart item
+        cartService.updateCartItemQuantity(itemId, cartItemDto.getQuantity(), user);
+
+        return new ResponseEntity<>(new ApiResponse(true, "Cart item quantity updated"), HttpStatus.OK);
     }
 
 }

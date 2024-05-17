@@ -78,4 +78,26 @@ public class CartService {
 
 
     }
+
+    public void updateCartItemQuantity(Integer cartItemId, Integer newQuantity, User user) {
+        // Check if the cart item exists and belongs to the user
+        Optional<Cart> optionalCart = cartRepository.findById(cartItemId);
+        if (optionalCart.isEmpty()) {
+            throw new CustomException("Cart item id is invalid: " + cartItemId);
+        }
+
+        Cart cart = optionalCart.get();
+        if (!cart.getUser().equals(user)) {
+            throw new CustomException("Cart item does not belong to user: " + cartItemId);
+        }
+
+        // Check if the new quantity is valid
+        if (newQuantity <= 0) {
+            throw new CustomException("Quantity must be greater than 0");
+        }
+
+        // Update the quantity of the cart item
+        cart.setQuantity(newQuantity);
+        cartRepository.save(cart);
+    }
 }
