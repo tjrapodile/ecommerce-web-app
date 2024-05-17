@@ -2,7 +2,9 @@ package com.educative.ecommerce.controller;
 
 import com.educative.ecommerce.common.ApiResponse;
 import com.educative.ecommerce.dto.ProductDto;
+import com.educative.ecommerce.exceptions.ProductNotExistsException;
 import com.educative.ecommerce.model.Category;
+import com.educative.ecommerce.model.Product;
 import com.educative.ecommerce.repository.CategoryRepo;
 import com.educative.ecommerce.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +54,17 @@ public class ProductController {
         }
         productService.updateProduct(productDto, productId);
         return new ResponseEntity<ApiResponse>(new ApiResponse(true, "product has been updated"), HttpStatus.OK);
+    }
+
+    @GetMapping("/{productId}")
+    public ResponseEntity<ProductDto> getProductById(@PathVariable Integer productId) {
+        try {
+            Product product = productService.findById(productId);
+            ProductDto productDto = productService.getProductDto(product);
+            return new ResponseEntity<>(productDto, HttpStatus.OK);
+        } catch (ProductNotExistsException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
 }
