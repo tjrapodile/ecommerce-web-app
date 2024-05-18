@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "https://664859dc3800ea9be02b773f--thembis-bazaar.netlify.app")
 @RequestMapping("/product")
 public class ProductController {
     @Autowired
