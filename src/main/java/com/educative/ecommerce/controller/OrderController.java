@@ -17,8 +17,8 @@ public class OrderController {
     // Checkout session checkout api
 
     @PostMapping("/create-checkout-session")
-    public String checkoutList(@RequestBody OrderDto orderDto){
-        String response = orderService.addOrder(orderDto);
+    public OrderDto checkoutList(@RequestBody OrderDto orderDto){
+        OrderDto response = orderService.addOrder(orderDto);
         return response;
 
     }
