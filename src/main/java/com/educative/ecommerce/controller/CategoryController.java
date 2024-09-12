@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/category")
-@CrossOrigin(origins = "https://664859dc3800ea9be02b773f--thembis-bazaar.netlify.app")
+@CrossOrigin(origins = "https://thembis-bazaar.netlify.app")
 public class CategoryController {
 
     @Autowired
